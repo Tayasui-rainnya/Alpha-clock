@@ -85,7 +85,7 @@
       m = (m < 10) ? "0" + m : m
       s = (s < 10) ? "0" + s : s
 
-      // 更新时间显示
+      // 合并DOM操作，避免重复访问
       hours.innerHTML = h;
       minutes.innerHTML = m;
       seconds.innerHTML = s;
@@ -129,8 +129,8 @@
 
     updateDate();
 
-    // 每1000ms更新一次日期
-    setInterval(updateDate, 1000);
+    // 每分钟更新一次日期，避免每秒更新
+    setInterval(updateDate, 60000);
 
     // 倒计时函数
     function updateCountdown() {
@@ -146,10 +146,12 @@
       document.getElementById('countdown').innerHTML = 
         `&nbsp;&nbsp;&nbsp;距离高考还有${days}天`; //${hours}时${minutes}分${seconds}秒
     }
+
     updateCountdown();
 
-    // 每1000ms更新一次倒计时
-    setInterval(updateCountdown, 1000);
+    // 每分钟更新一次倒计时
+    setInterval(updateCountdown, 60000);
+
   </script>
 </body>
 </html>
