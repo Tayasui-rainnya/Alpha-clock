@@ -38,8 +38,7 @@
   </div>
 
 <!-- 静态图片 -->
-<!-- 删掉这行显示右上角的图片（可以整个课程表之类的放这里）
-  <img src="sheet.png" alt="这是课程表与值日表" class="pic"> <!--  -->
+  <img src="sheet.png" alt="这是课程表与值日表" class="pic">
 
   <!-- 日期显示 -->
   <div class="date">
@@ -48,9 +47,8 @@
     <span id="month"></span>
     <span id="year"></span>
     <br>
-    <!-- 删掉这行显示倒计时
     <!-- 倒计时显示 -->
-    <div id ="countdown"></div> <!--  -->
+    <div id ="countdown"></div>
   </div>
 
   <script>
@@ -144,7 +142,7 @@
       const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
       document.getElementById('countdown').innerHTML = 
-        `&nbsp;&nbsp;&nbsp;距离高考还有${days}天`; //${hours}时${minutes}分${seconds}秒
+        `&nbsp;&nbsp;距离高考还有${days}天`; //${hours}时${minutes}分${seconds}秒
     }
 
     updateCountdown();
