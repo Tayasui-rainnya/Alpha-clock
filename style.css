@@ -236,6 +236,7 @@ background {
 
 /* 
   .pic 样式：
+  * 我勒个课程表值日表啊
   * 设置固定定位，位于屏幕右上角。
 */
 .pic {
@@ -252,6 +253,6 @@ background {
     margin-top: 180px;  /* 留白 */
     color: white; /* 白色❤ */
     font-family: sans-serif;  /* 字体 */
-    font-size: 1.7rem;  /* 大♂小 */
+    font-size: 2.4rem;  /* 大♂小 */
     text-shadow: 0 0 20px black;  /* 阴影 */
 }
