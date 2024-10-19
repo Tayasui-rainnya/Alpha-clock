@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
   <title>Digital Clock</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body background="https://api.dujin.org/bing/1920.php" style="background-repeat:no-repeat background-attachment fixed; background-position:center;background-size:100% 100%;">
+<body>
+
+  <img id="donate" src="donate.png" alt="饭">
+  
   <div class="clock">
     <!-- 时钟显示区域 -->
     <div class="digital" style="--clr:#ff2972;">
       <div class="screen" data-text="Hours">
         <div class="time">
-          <div id="hour"></div> </div>
+          <div id="hour"></div>
+        </div>
       </div>
     </div>
     <div class="digital" style="--clr:#fee800;">
@@ -32,14 +36,14 @@
     <div class="digital">
       <div class="box" id="hr" style="--clr:#04fc43;"></div>
       <div class="box" id="mn" style="--clr:#04fc43;"></div>
-      <div class="box" id="sc" style="--clr:#04fc43;"></div>
+      <div class="box" id="sc" style="--clr:#04fc43;">&nbsp;</div>
       <div id="ampm"></div>
     </div>
-  </div>
+</div>
 
 <!-- 静态图片 -->
 <!-- 删掉这行显示右上角的图片（可以整个课程表之类的放这里）
-  <img src="sheet.png" alt="这是课程表与值日表" class="pic"> <!--  -->
+<img src="sheet.png" alt="放个课程表与值日表，" class="pic"> <!--  -->
 
   <!-- 日期显示 -->
   <div class="date">
@@ -48,110 +52,144 @@
     <span id="month"></span>
     <span id="year"></span>
     <br>
-    <!-- 删掉这行显示倒计时
     <!-- 倒计时显示 -->
-    <div id ="countdown"></div> <!--  -->
+    <div id ="countdown"></div>
   </div>
 
-  <script>
-    // 获取时间显示元素
-    let hours = document.getElementById("hour");
-    let minutes = document.getElementById("minutes");
-    let seconds = document.getElementById("seconds");
-    let ampm = document.getElementById("ampm");
+<script>
+  // 获取时间显示元素
+  let hours = document.getElementById("hour");
+  let minutes = document.getElementById("minutes");
+  let seconds = document.getElementById("seconds");
+  let ampm = document.getElementById("ampm");
 
-    // 获取指针时钟元素
-    let hr = document.querySelector('#hr');
-    let mn = document.querySelector('#mn');
-    let sc = document.querySelector('#sc');
+  // 获取指针时钟元素
+  let hr = document.querySelector('#hr');
+  let mn = document.querySelector('#mn');
+  let sc = document.querySelector('#sc');
 
-    // 每秒更新时间
-    setInterval(() => {
-      let date = new Date();
-      let h = date.getHours();
-      let m = date.getMinutes();
-      let s = date.getSeconds();
+  // 每秒更新时间
+  setInterval(() => {
+    let date = new Date();
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
 
-      // 判断上午/下午
-      var am = h >= 12 ? "PM" : "AM";
+    // 判断上午/下午
+    const am = h >= 12 ? "PM" : "AM";
 
-      // 24小时制转换为12小时制
-      if (h > 12) {
-        h = h - 12;
-      }
-
-      // 如果数字小于10，前面添加0
-      h = (h < 10) ? "0" + h : h
-      m = (m < 10) ? "0" + m : m
-      s = (s < 10) ? "0" + s : s
-
-      // 合并DOM操作，避免重复访问
-      hours.innerHTML = h;
-      minutes.innerHTML = m;
-      seconds.innerHTML = s;
-      ampm.innerHTML = am;
-
-      // 计算指针旋转角度
-      let hrPosition = (h * 360 / 12) + (m * 360 / 60 / 12);
-      let mnPosition = (m * 360 / 60) + (s * 360 / 60 / 60);
-      let scPosition = s * 360 / 60;
-
-      // 应用旋转样式
-      hr.style.transform = `rotate(${hrPosition}deg)`;
-      mn.style.transform = `rotate(${mnPosition}deg)`;
-      sc.style.transform = `rotate(${scPosition}deg)`;
-    }, 1000);
-
-    // 日期函数
-    // 获取日期元素
-    const weekday = document.getElementById("weekday"); 
-    const day = document.getElementById("day"); 
-    const month = document.getElementById("month"); 
-    const year = document.getElementById("year"); 
-
-    // 更新日期函数
-    function updateDate() {
-      // 获取当前日期
-      const date = new Date();
-
-      // 获取当前星期、日期、月份、年份
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const formattedDate = date.toLocaleDateString('zh-CN', options);
-
-      // 更新日期的显示
-      const [weekdayStr, monthStr, dayStr, yearStr] = formattedDate.split(' ');
-      const str = weekdayStr.substring(0, weekdayStr.length - 3) + ' ' + weekdayStr.substring(weekdayStr.length - 3);
-      weekday.textContent = str;
-      day.textContent = dayStr;
-      month.textContent = monthStr;
-      year.textContent = yearStr;
+    // 24小时制转换为12小时制
+    if (h > 12) {
+      h = h - 12;
     }
 
-    updateDate();
+    // 如果数字小于10，前面添加0
+    h = (h < 10) ? "0" + h : h
+    m = (m < 10) ? "0" + m : m
+    s = (s < 10) ? "0" + s : s
 
-    // 每分钟更新一次日期，避免每秒更新
-    setInterval(updateDate, 60000);
+    // 合并DOM操作，避免重复访问
+    hours.innerHTML = h;
+    minutes.innerHTML = m;
+    seconds.innerHTML = s;
+    ampm.innerHTML = am;
 
-    // 倒计时函数
-    function updateCountdown() {
-      const now = new Date();
-      const targetDate = new Date('2025-06-06T08:00:00'); // 设置目标日期
-      const timeDifference = targetDate - now;
+    // 计算指针旋转角度
+    let hrPosition = (h * 360 / 12) + (m * 360 / 60 / 12);
+    let mnPosition = (m * 360 / 60) + (s * 360 / 60 / 60);
+    let scPosition = s * 360 / 60;
 
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    // 应用旋转样式
+    hr.style.transform = `rotate(${hrPosition}deg)`;
+    mn.style.transform = `rotate(${mnPosition}deg)`;
+    sc.style.transform = `rotate(${scPosition}deg)`;
+  }, 1000);
 
-      document.getElementById('countdown').innerHTML = 
-        `&nbsp;&nbsp;&nbsp;距离高考还有${days}天`; //${hours}时${minutes}分${seconds}秒
+  // 日期函数
+  // 获取日期元素
+  const weekday = document.getElementById("weekday");
+  const day = document.getElementById("day");
+  const month = document.getElementById("month");
+  const year = document.getElementById("year");
+
+  // 更新日期函数
+  function updateDate() {
+    // 获取当前日期
+    const date = new Date();
+
+    // 获取当前星期、日期、月份、年份
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('zh-CN', options);
+
+    // 更新日期的显示
+    const [weekdayStr, monthStr, dayStr, yearStr] = formattedDate.split(' ');
+    const str = weekdayStr.substring(0, weekdayStr.length - 3) + ' ' + weekdayStr.substring(weekdayStr.length - 3);
+    weekday.textContent = str;
+    day.textContent = dayStr;
+    month.textContent = monthStr;
+    year.textContent = yearStr;
+  }
+
+  updateDate();
+
+  // 每分钟更新一次日期，避免每秒更新
+  setInterval(updateDate, 360000);
+
+  // 倒计时函数
+  function updateCountdown() {
+    const now = new Date();
+    let targetYear = now.getFullYear();
+    const targetDateThisYear = new Date(`${targetYear}-06-07T08:00:00`);
+
+    // 如果当前时间超过6月7日，则切换到下一年的6月7日
+    if (now > targetDateThisYear) {
+      targetYear += 1;
     }
 
-    updateCountdown();
+    const targetDate = new Date(`${targetYear}-06-07T08:00:00`);
+    const timeDifference = targetDate - now;
 
-    // 每分钟更新一次倒计时
-    setInterval(updateCountdown, 60000);
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-  </script>
+    document.getElementById('countdown').innerHTML =
+            `距离${targetYear}年高考还有${days}天`; // ${hours}时${minutes}分${seconds}秒
+  }
+
+  updateCountdown();
+
+  // 每分钟更新一次倒计时
+  setInterval(updateCountdown, 60000);
+
+
+  // 获取表格和表头元素
+  const table = document.getElementById("scheduleTable");
+  const tableHeader = table.querySelector("thead");
+  const dutyHeader = document.getElementById("dutyHeader");
+  const dutyBody = document.getElementById("dutyBody");
+
+  // 添加点击事件
+  tableHeader.addEventListener("click", function() {
+    table.classList.toggle("collapsed"); // 切换表格折叠状态
+  });
+
+  dutyHeader.addEventListener("click", function() {
+    dutyBody.classList.toggle("collapsed");
+  });
+
+
+  // 获取图片元素
+  const donate = document.getElementById('donate');
+
+  // 设置300秒后图片自动消失
+  setTimeout(() => {
+    donate.style.display = 'none';  // 隐藏图片
+  }, 300000);  // 300秒 = 300000毫秒
+
+  // 点击图片时，立即隐藏图片
+  donate.addEventListener('click', () => {
+    donate.style.display = 'none';  // 隐藏图片
+  });
+
+</script>
 </body>
 </html>
