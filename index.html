@@ -160,23 +160,7 @@
   // 每分钟更新一次倒计时
   setInterval(updateCountdown, 60000);
 
-
-  // 获取表格和表头元素
-  const table = document.getElementById("scheduleTable");
-  const tableHeader = table.querySelector("thead");
-  const dutyHeader = document.getElementById("dutyHeader");
-  const dutyBody = document.getElementById("dutyBody");
-
-  // 添加点击事件
-  tableHeader.addEventListener("click", function() {
-    table.classList.toggle("collapsed"); // 切换表格折叠状态
-  });
-
-  dutyHeader.addEventListener("click", function() {
-    dutyBody.classList.toggle("collapsed");
-  });
-
-
+  // 要恰饭的嘛
   // 获取图片元素
   const donate = document.getElementById('donate');
 
