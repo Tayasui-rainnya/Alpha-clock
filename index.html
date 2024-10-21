@@ -163,17 +163,18 @@
   setInterval(updateCountdown, 60000);
 
   // 要恰饭的嘛
+
   // 获取图片元素
   const donate = document.getElementById('donate');
 
   // 设置300秒后图片自动消失
   setTimeout(() => {
-    donate.style.display = 'none';  // 隐藏图片
+    donate.classList.add('hidden');  // 隐藏图片并触发动画
   }, 300000);  // 300秒 = 300000毫秒
 
-  // 点击图片时，立即隐藏图片
+  // 点击图片时，图片从下方掉出屏幕
   donate.addEventListener('click', () => {
-    donate.style.display = 'none';  // 隐藏图片
+    donate.classList.add('hidden');  // 隐藏图片并触发动画
   });
 
 </script>
